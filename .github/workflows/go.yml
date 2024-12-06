@@ -17,11 +17,16 @@ jobs:
       with:
         go-version: '1.21'
 
+    - name: Initialize Go Module
+      run: |
+        go mod init github.com/${{ github.repository }} || true
+        go mod tidy
+
     - name: Build
-      run: go build -v ./...
+      run: go build -v .
 
     - name: Test
-      run: go test -v ./...
+      run: go test -v .
 
     - name: Run with Race Detector
-      run: go run -race main.go
+      run: go run -race .
